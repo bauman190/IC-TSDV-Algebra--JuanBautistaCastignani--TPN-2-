@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\bauma\source\repos\TP2 Algebra\TP2 Algebra\main.cpp(63,18): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  TP2 Algebra.vcxproj -> C:\Users\bauma\source\repos\TP2 Algebra\Debug\TP2 Algebra.exe
