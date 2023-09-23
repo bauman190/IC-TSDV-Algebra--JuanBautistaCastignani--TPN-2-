@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include <math.h>
+#include <iostream>
 
 struct vector
 {
@@ -37,6 +38,8 @@ int main()
     vectorA.end.y = GetRandomValue(1,5);
     vectorA.end.z = GetRandomValue(1,5);
 
+    std::cout << vectorA.end.x << " " << vectorA.end.y << " " << vectorA.end.z;
+
     vector vectorB;
     vectorB.start.x = vectorA.start.x;
     vectorB.start.y = vectorA.start.y;
@@ -44,7 +47,7 @@ int main()
 
     vectorB.end.x = vectorA.end.z;
     vectorB.end.y = vectorA.end.y;
-    vectorB.end.z = vectorA.end.x * -1.0f;
+    vectorB.end.z = -vectorA.end.x;
 
     vector vectorC;
     vectorC.start.x = vectorA.start.x;
@@ -54,6 +57,12 @@ int main()
     vectorC.end.x = ((vectorA.end.y * vectorB.end.z) - (vectorA.end.z * vectorB.end.y));
     vectorC.end.y = ((vectorA.end.z * vectorB.end.x) - (vectorA.end.x * vectorB.end.z));
     vectorC.end.z = ((vectorA.end.x * vectorB.end.y) - (vectorA.end.y * vectorB.end.x));
+
+    Vector3 corte;
+
+    corte.y = vectorA.end.x / 3;
+    corte.x = (vectorC.end.x / vectorC.end.y) * corte.y;
+    corte.z = (vectorC.end.z / vectorC.end.y) * corte.y;
 
     SetCameraMode(camera, CAMERA_ORBITAL);
   
@@ -72,7 +81,7 @@ int main()
 
         DrawLine3D(vectorB.start, vectorB.end, BLUE);
 
-        DrawLine3D(vectorC.start, vectorC.end, GREEN);
+        DrawLine3D(vectorC.start, corte, GREEN);
 
         DrawGrid(20.0f, 1.0f);
         
