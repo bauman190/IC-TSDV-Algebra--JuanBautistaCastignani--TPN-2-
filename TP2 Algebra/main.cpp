@@ -23,17 +23,19 @@ int main()
     camera.position = { 0.0f, 10.0f, 10.0f };  
     camera.target = { 0.0f, 0.0f, 0.0f };      
     camera.up = { 0.0f, 1.0f, 0.0f };          
-    camera.fovy = 45.0f;                                
+    camera.fovy = 70.0f;                                
     camera.projection = CAMERA_PERSPECTIVE;
+    
+    
 
     vector vectorA;
-    vectorA.start.x = 3.0f;
+    vectorA.start.x = 0.0f;
     vectorA.start.y = 0.0f;
-    vectorA.start.z = 1.0f;
+    vectorA.start.z = 0.0f;
 
-    vectorA.end.x = 4.0f;
-    vectorA.end.y = 0.0f;
-    vectorA.end.z = 2.0f;
+    vectorA.end.x = GetRandomValue(1,5);
+    vectorA.end.y = GetRandomValue(1,5);
+    vectorA.end.z = GetRandomValue(1,5);
 
     vector vectorB;
     vectorB.start.x = vectorA.start.x;
@@ -42,14 +44,24 @@ int main()
 
     vectorB.end.x = vectorA.end.z;
     vectorB.end.y = vectorA.end.y;
-    vectorB.end.z = vectorA.end.x;
+    vectorB.end.z = vectorA.end.x * -1.0f;
 
-    
+    vector vectorC;
+    vectorC.start.x = vectorA.start.x;
+    vectorC.start.y = vectorA.start.y;
+    vectorC.start.z = vectorA.start.z;
+
+    vectorC.end.x = ((vectorA.end.y * vectorB.end.z) - (vectorA.end.z * vectorB.end.y));
+    vectorC.end.y = ((vectorA.end.z * vectorB.end.x) - (vectorA.end.x * vectorB.end.z));
+    vectorC.end.z = ((vectorA.end.x * vectorB.end.y) - (vectorA.end.y * vectorB.end.x));
+
+    SetCameraMode(camera, CAMERA_ORBITAL);
   
     while (!WindowShouldClose())    
-    {
-        
-        
+    {      
+    
+        UpdateCamera(&camera);
+
         BeginDrawing();
 
         ClearBackground(BLACK);
@@ -60,7 +72,9 @@ int main()
 
         DrawLine3D(vectorB.start, vectorB.end, BLUE);
 
-        DrawGrid(10.0f, 1.0f);
+        DrawLine3D(vectorC.start, vectorC.end, GREEN);
+
+        DrawGrid(20.0f, 1.0f);
         
         EndMode3D();
 
@@ -68,7 +82,6 @@ int main()
         
     }
 
-    
     CloseWindow();        
     
 
