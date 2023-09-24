@@ -68,7 +68,8 @@ int main()
     SetCameraMode(camera, CAMERA_ORBITAL);
   
     while (!WindowShouldClose())    
-    {      
+    {   
+
         UpdateCamera(&camera);
 
         BeginDrawing();
@@ -95,11 +96,6 @@ int main()
     
 
     return 0;
-}
-
-float magnitud(Vector3 vector) 
-{
-    return sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
 }
 
 
